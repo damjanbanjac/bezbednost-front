@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>helo</h1>
+    <h1>hello</h1>
     <div v-for="admin in admini" :key="admin.id">
       <h1>admin.id</h1>
     </div>
