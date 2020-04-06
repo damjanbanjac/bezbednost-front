@@ -31,12 +31,48 @@
 </template>
 
 <script>
+
+
+import axios from "axios"
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   }
+  
+  
+  ,
+
+data() {
+
+    return {
+
+     admini: []
+
+    };
+  },
+
+mounted() {
+
+   
+    
+      axios
+      .get("/admin/sviAdmini")
+     console.log("hej")
+      .then(admini =>{
+        this.admini = admini.data;
+      })
+      .catch(error => {
+          console.log(error)
+      });
+    
+
 }
+
+}
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

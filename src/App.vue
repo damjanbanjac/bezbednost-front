@@ -1,19 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>helo</h1>
+    <div v-for="admin in admini" :key="admin.id">
+      <h1>admin.id</h1>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import axios from "axios"
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+   
+  } ,
+
+data() {
+
+    return {
+
+     admini: []
+
+    };
+  },
+
+mounted() {
+
+   
+    
+      axios
+      .get("/admin/sviAdmini")
+      .then(admini =>{
+        this.admini = admini.data;
+      })
+      .catch(error => {
+          console.log(error)
+      });
+    
+
 }
+
+}
+
 </script>
 
 <style>
