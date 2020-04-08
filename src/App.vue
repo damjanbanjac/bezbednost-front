@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <h1>Hello</h1>
-    <div v-for="admin in admini" :key="admin.id">
-      <h1>admin.id</h1>
-    </div>
+  <div id="app">
+      <Admin> </Admin>
   </div>
 </template>
 
 <script>
 
 import axios from "axios"
+import Admin from "./components/Admin"
 export default {
   name: 'App',
   components: {
-   
+    Admin
   } ,
 
 data() {
