@@ -1,43 +1,60 @@
 <template>
   <div>
-    <b-container v-if="error">
-      <b-alert show variant="danger" class="d-flex justify-content-center">{{errorMessage}}</b-alert>
+    <!--Errors-->
+    <b-container name="errors" v-if="error">
+      <b-alert show variant="danger">{{errorMessage}}</b-alert>
     </b-container>
-    <b-container class="d-flex justify-content-center" style="margin-top: 20px">
-      <b-card style="width: 60%">
-        <!--Header-->
+    <b-container class="d-flex justify-content-center">
+      
+      <b-card class="card" style="width: 60%;">
+        <!--Card header-->
         <div class="header pt-3 lighten-2">
           <div class="row d-flex justify-content-start">
-            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5">Kreiranje zahteva</h3>
+            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5" style="color:#001529">Kreiranje zahteva</h3>
           </div>
         </div>
-
+        <!--Card body-->
         <div class="form-group">
-          <div class="card-body mx-4 mt-4">
-            <div class="row">
-              <div class="col">
-                <div class="md-form">
-                  <label>E-mail</label>
-                  <input type="text" class="form-control" v-model="user.mail" />
-                  <label>Ime</label>
-                  <input type="password" class="form-control" v-model="password" />
-                  <label>Prezime</label>
-                  <input type="password" class="form-control" v-model="checkPassword" />
-                  <label>Organizacija</label>
-                  <input type="text" class="form-control" v-model="user.ime" />
-                  <label>Organizaciona jedinica</label>
-                  <input type="text" class="form-control" v-model="user.prezime" />
-                </div>
-              </div>
-            </div>
+          <div class="card-body">
 
-            <div class="text-center mb-4 mt-4">
-              <button
-                type="button"
-                class="btn btn-success btn-block z-depth-2"
-                @click="createForm"
-              >Kreiraj zahtev</button>
-            </div>
+            <b-container class="form" fluid>
+
+              <b-row class="my-3">
+                <b-col sm="12">
+                  <b-form-input placeholder="Ime..." type="text" v-model="subject.name"></b-form-input>
+                </b-col>
+              </b-row>
+
+              <b-row class="my-3">
+                <b-col sm="12">
+                  <b-form-input placeholder="Prezime..." type="text" v-model="subject.surname"></b-form-input>
+                </b-col>
+              </b-row>
+
+              <b-row class="my-3">
+                <b-col sm="12">
+                  <b-form-input placeholder="E-mail..." type="email" v-model="subject.email"></b-form-input>
+                </b-col>
+              </b-row>
+
+              <b-row class="my-3">
+                <b-col sm="12">
+                  <b-form-input placeholder="Organizacija..." type="text" v-model="subject.organisation"></b-form-input>
+                </b-col>
+              </b-row>
+
+              <b-row class="my-3">
+                <b-col sm="12">
+                  <b-form-input placeholder="Organizaciona jedinica..." type="text" v-model="subject.orgUnit"></b-form-input>
+                </b-col>
+              </b-row>
+
+              <br/>
+
+              <div>
+                <b-button @click="createForm()" style="width:130px;" variant="outline-primary">Kreiraj zahtev</b-button>
+              </div>
+            </b-container>
           </div>
         </div>
       </b-card>
@@ -51,12 +68,14 @@ export default {
   data() {
     return {
       subject: {
-        email: "",
         name: "",
         surname: "",
+        email: "",
         organisation: "",
         orgUnit: ""
       },
+      error: false,
+      errorMessage: ""
     };
   },
   methods: {
@@ -69,29 +88,28 @@ export default {
         this.subject.organisation == "" ||
         this.subject.orgUnit == ""
       ) {
-        this.errorMessage = "Molimo vas popunite sva polja";
+        this.errorMessage = "Molimo vas popunite sva polja!";
         this.error = true;
         return;
       }
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (!re.test(String(this.user.mail.trim()).toLowerCase())) {
-        this.errorMessage = "Mail adresa nije u odgovarajucem formatu";
-        this.error = true;
-        return;
-      }
+      
       axios
         .post("/subject", this.subject)
-        .then(() => {
-          this.subject.email == "";
-        this.subject.name == "";
-        this.subject.surname == "";
-        this.subject.organisation == "";
-        this.subject.orgUnit == "";
-          this.$router.push("/");
+        // .then(() => {
+        //   this.subject.email == "";
+        //   this.subject.name == "";
+        //   this.subject.surname == "";
+        //   this.subject.organisation == "";
+        //   this.subject.orgUnit == "";
+        //   this.$router.push("/");
+        // })
+        .then(subject=>{
+          this.subject= subject.data;
+          this.error= false;
         })
         .catch(error => {
           console.log(error);
-          this.errorMessage = "Email vec postoji";
+          this.errorMessage = "Uneti e-mail već postoji!";
           this.error = true;
         });
     }
@@ -100,10 +118,9 @@ export default {
 </script>
 
 <style>
+
 .header {
-  background-color: lightgray;
+  background: #EFF2F8;
 }
-input {
-  margin-bottom: 8%;
-}
+
 </style>
