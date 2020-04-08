@@ -23,21 +23,6 @@ data() {
     };
   },
 
-mounted() {
-
-   
-    
-      axios
-      .get("/admin/sviAdmini")
-      .then(admini =>{
-        this.admini = admini.data;
-      })
-      .catch(error => {
-          console.log(error)
-      });
-    
-
-}
 
 }
 

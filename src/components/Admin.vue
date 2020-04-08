@@ -1,48 +1,49 @@
 <template>
     <div>
+        <form class="main-form">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="center">Name</label>
+                        <div>
+                            <input type="text" readonly id="inputName" class="form-control">
+                        </div>
+                    </div>
+                </div>
 
-        <form>
-            <div class="form-group row">
-                <label>Name</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly id="inputName">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="center">Surname</label>
+                        <div>
+                            <input type="text" readonly id="inputSurname" class="form-control">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label>Surname</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly id="inputSurname">
-                </div>
-            </div>
             
-            <div class="form-group row">
+            
+            <div class="form-group">
                 <label>Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly id="staticEmail">
+                <div>
+                    <input type="text" readonly id="staticEmail" class="form-control">
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group">
                 <label>Organisation</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly id="inputOrganisation">
+                <div>
+                    <input type="text" readonly id="inputOrganisation" class="form-control">
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group">
                 <label>Date</label>
-                <div class="col-sm-10">
-                    <input type="date" id="inputDateStart">
+                <div>
+                    <input type="date" id="inputDateStart" class="form-control">
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label>Date</label>
-                <div class="col-sm-10">
-                    <input type="date" id="inputDateEnd">
-                </div>
-            </div>
 
             <div>
                 <label class="typo__label">Key usage extension</label>
@@ -52,10 +53,10 @@
 
 
 
-            <div class="form-group row">
+            <div class="form-group">
                 <label>Certificate signer</label>
-                <div class="col-sm-10">
-                    <select id="signers">
+                <div>
+                    <select id="signers" class="form-control">
                         <option value="rootCertificate">Root certificate</option>
                         <option value="intermediateCertificate">Intermediate certificate</option>
                     </select>
@@ -63,17 +64,18 @@
             </div>
 
 
-            <div class="form-group row">
+            <div class="form-group">
                 <label>Intermediate certificate</label>
-                <div class="col-sm-10">
-                    <select id="intermediateSigners">
+                <div>
+                    <select id="intermediateSigners" class="form-control">
                         
                     </select>
                 </div>
             </div>
 
-        </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
 
+        </form>
     </div>
 </template>
 
@@ -104,9 +106,16 @@ export default {
         code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
       }
       this.options.push(tag)
-      this.value.push(tag)
+      this.value.push(tag) 
     }
   }
     
 }
 </script>
+
+<style scoped>
+    .main-form {
+        width: 500px;
+        margin: auto;
+    }
+</style>
