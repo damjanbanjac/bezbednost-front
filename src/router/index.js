@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CreateForm from '../components/CreateForm.vue'
+import Admin from '../components/Admin.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/userForm',
     name: 'create-form',
     component: CreateForm
+  },
+  {
+    path: '/adminForm',
+    name: 'admin-form',
+    component: Admin
   }
 ]
 

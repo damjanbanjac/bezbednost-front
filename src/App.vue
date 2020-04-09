@@ -1,7 +1,25 @@
 <template>
-
   <div id="app">
-    <create-form></create-form>
+
+
+    <div>
+
+
+      
+      
+      <router-link to="/userForm">
+        <b-button block variant="primary">User form</b-button>
+      </router-link>
+
+      <router-link to="/adminForm">
+        <b-button block variant="info">Admin form</b-button>
+      </router-link>
+      <router-view />
+      
+
+    </div>
+
+
   </div>
 
 
@@ -9,11 +27,23 @@
 <script>
 import CreateForm from "@/components/CreateForm.vue";
 
+// import axios from "axios"
 export default {
   components: {
-    "create-form": CreateForm
-  }
-};
+  } ,
+
+data() {
+
+    return {
+
+     admini: []
+
+    };
+  },
+
+
+}
+
 </script>
 
 <style>
