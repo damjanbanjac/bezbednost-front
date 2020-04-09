@@ -1,12 +1,30 @@
 <template>
     <div>
+        <div style="mx-4">
+                <label for="Form-klinika">Zahtevi</label>
+                    <b-form-select v-model="selektovaniZahtev">
+                    <option
+                        v-for="zahtev in sviZahtevi"
+                        :value="zahtev.id"
+                        :key="zahtev.id"
+                        >{{zahtev.id}}</option>
+                    </b-form-select>
+
+
+                    </div>
         <form class="main-form">
             <div class="row">
                 <div class="col">
+                    
                     <div class="form-group">
                         <label class="center">Name</label>
-                        <div>
-                            <input type="text" readonly id="inputName" class="form-control">
+                        <div v-for="zahtev in sviZahtevi"
+                            :value="zahtev.id"
+                            :key="zahtev.id" >
+                            <input type="text" readonly 
+                            v-if="zahtev.id === selektovaniZahtev"
+                            v-model="zahtev.name"
+                            id="inputName" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -14,8 +32,13 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="center">Surname</label>
-                        <div>
-                            <input type="text" readonly id="inputSurname" class="form-control">
+                        <div v-for="zahtev in sviZahtevi"
+                            :value="zahtev.id"
+                            :key="zahtev.id">
+                            <input type="text" readonly
+                            v-if="zahtev.id === selektovaniZahtev"
+                            v-model="zahtev.surname"
+                             id="inputSurname" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -25,46 +48,59 @@
             
             <div class="form-group">
                 <label>Email</label>
-                <div>
-                    <input type="text" readonly id="staticEmail" class="form-control">
+                <div v-for="zahtev in sviZahtevi"
+                    :value="zahtev.id"
+                    :key="zahtev.id">
+                    <input type="text" readonly
+                    v-if="zahtev.id === selektovaniZahtev"
+                    v-model="zahtev.email"
+                    id="staticEmail" class="form-control">
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Organisation</label>
-                <div>
-                    <input type="text" readonly id="inputOrganisation" class="form-control">
+                <div v-for="zahtev in sviZahtevi"
+                    :value="zahtev.id"
+                    :key="zahtev.id"
+                    >
+                    <input type="text" readonly 
+                     v-if="zahtev.id === selektovaniZahtev"
+                    v-model="zahtev.email"
+                    id="inputOrganisation" class="form-control">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Date</label>
+                <label>Days</label>
                 <div>
-                    <input type="date" id="inputDateStart" class="form-control">
+                    <input type="text" id="inputDateStart" class="form-control">
                 </div>
             </div>
 
 
-            <div>
+            <!--<div>
                 <label class="typo__label">Key usage extension</label>
                 <multiselect v-model="value" placeholder="Pick an extension" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
-            </div>
-
+            </div>-->
+            <label class="typo__label">Is CA?</label>
+            <input type="checkbox" style="mx-4">
 
 
 
             <div class="form-group">
                 <label>Certificate signer</label>
                 <div>
-                    <select id="signers" class="form-control">
-                        <option value="rootCertificate">Root certificate</option>
-                        <option value="intermediateCertificate">Intermediate certificate</option>
-                    </select>
+                    <select v-model="provera">
+                    <option v-for="cert in certificates" v-bind:key="{id: cert.id, text: cert.name }">
+                    {{ cert.name }}
+                </option>
+                </select>
                 </div>
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group" v-if="provera === 'Intermediate certificate'">
                 <label>Intermediate certificate</label>
                 <div>
                     <select id="intermediateSigners" class="form-control">
@@ -81,14 +117,22 @@
 
 
 <script>
-import Multiselect from 'vue-multiselect'
+//import Multiselect from 'vue-multiselect';
+import axios from "axios";
 export default {
     name: "Admin",
     components: {
-        Multiselect
+        //Multiselect
     },
     data () {
     return {
+    selektovaniZahtev: "",
+    sviZahtevi: [],
+    provera: "",
+    certificates: [
+        {id: 1, name: 'Intermediate certificate'},
+        {id: 2,name: 'Root certificare'}
+    ],
       value: [
         { name: 'Javascript', code: 'js' }
       ],
@@ -107,9 +151,20 @@ export default {
       }
       this.options.push(tag)
       this.value.push(tag) 
-    }
-  }
+    },
+  },
+
+  mounted() {
+    axios
+      .get("/subject/zahteviSubjekata")
+      .then(sviZahtevi => {
+        this.sviZahtevi = sviZahtevi.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     
+    }
 }
 </script>
 

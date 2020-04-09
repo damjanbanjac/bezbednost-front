@@ -24,8 +24,9 @@
 
 
 </template>
+
 <script>
-import CreateForm from "@/components/CreateForm.vue";
+//import CreateForm from "@/components/CreateForm.vue";
 
 // import axios from "axios"
 export default {
