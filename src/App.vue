@@ -1,36 +1,27 @@
 <template>
   <div id="app">
 
-
     <div>
 
+      <home-page></home-page>
 
-      
-      
-      <router-link to="/userForm">
-        <b-button block variant="primary">User form</b-button>
-      </router-link>
-
-      <router-link to="/adminForm">
-        <b-button block variant="info">Admin form</b-button>
-      </router-link>
       <router-view />
-      
 
     </div>
 
-
   </div>
-
 
 </template>
 
 <script>
-//import CreateForm from "@/components/CreateForm.vue";
 
 // import axios from "axios"
+
+import HomePage from "@/components/HomePage.vue"
+
 export default {
   components: {
+    "home-page" : HomePage
   } ,
 
 data() {
@@ -48,4 +39,5 @@ data() {
 </script>
 
 <style>
+
 </style>
