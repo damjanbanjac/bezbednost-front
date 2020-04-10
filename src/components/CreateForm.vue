@@ -6,11 +6,11 @@
     </b-container>
     <b-container class="d-flex justify-content-center">
       
-      <b-card class="card" style="width: 60%;">
+      <b-card class="card">
         <!--Card header-->
         <div class="header pt-3 lighten-2">
           <div class="row d-flex justify-content-start">
-            <h3 class="deep-grey-text mt-3 mb-4 pb-1 mx-5" style="color:#001529">Kreiranje zahteva</h3>
+            <h4 class="deep-grey-text mt-3 mb-4 pb-1 mx-5" style="color:#001529; font-style:oblique">Please fill form</h4>
           </div>
         </div>
         <!--Card body-->
@@ -21,38 +21,40 @@
 
               <b-row class="my-3">
                 <b-col sm="12">
-                  <b-form-input placeholder="Ime..." type="text" v-model="subject.name"></b-form-input>
+                  <label class="center">Name</label>
+                  <b-form-input style="width:48%" placeholder="Enter name" type="text" v-model="subject.name"></b-form-input>
+                </b-col>
+                <b-col style="margin-left: 242px;margin-top: -70px;" sm="12">
+                  <label class="center">Surname</label>
+                  <b-form-input style="width:48%" placeholder="Enter surname" type="text" v-model="subject.surname"></b-form-input>
                 </b-col>
               </b-row>
 
               <b-row class="my-3">
                 <b-col sm="12">
-                  <b-form-input placeholder="Prezime..." type="text" v-model="subject.surname"></b-form-input>
+                  <label class="center">E-mail</label>
+                  <b-form-input placeholder="Enter e-mail" type="email" v-model="subject.email"></b-form-input>
                 </b-col>
               </b-row>
 
               <b-row class="my-3">
                 <b-col sm="12">
-                  <b-form-input placeholder="E-mail..." type="email" v-model="subject.email"></b-form-input>
+                  <label class="center">Organisation</label>
+                  <b-form-input placeholder="Enter organisation" type="text" v-model="subject.organisation"></b-form-input>
                 </b-col>
               </b-row>
 
               <b-row class="my-3">
                 <b-col sm="12">
-                  <b-form-input placeholder="Organizacija..." type="text" v-model="subject.organisation"></b-form-input>
-                </b-col>
-              </b-row>
-
-              <b-row class="my-3">
-                <b-col sm="12">
-                  <b-form-input placeholder="Organizaciona jedinica..." type="text" v-model="subject.orgUnit"></b-form-input>
+                  <label class="center">Organisational unit</label>
+                  <b-form-input placeholder="Enter organisational unit" type="text" v-model="subject.orgUnit"></b-form-input>
                 </b-col>
               </b-row>
 
               <br/>
 
               <div>
-                <b-button @click="createForm()" style="width:130px;" variant="outline-primary">Kreiraj zahtev</b-button>
+                <button type="submit" class="btn btn-primary" @click="createForm()">Create request</button>
               </div>
             </b-container>
           </div>
@@ -95,14 +97,6 @@ export default {
       
       axios
         .post("/subject", this.subject)
-        // .then(() => {
-        //   this.subject.email == "";
-        //   this.subject.name == "";
-        //   this.subject.surname == "";
-        //   this.subject.organisation == "";
-        //   this.subject.orgUnit == "";
-        //   this.$router.push("/");
-        // })
         .then(subject=>{
           this.subject= subject.data;
           this.error= false;
@@ -121,6 +115,19 @@ export default {
 
 .header {
   background: #EFF2F8;
+}
+
+.card {
+  margin: auto;
+  width: 60%;
+}
+
+.form {
+  width: 500px;
+}
+
+.ml-5, .mx-5 {
+    margin-left: 6rem !important;
 }
 
 </style>

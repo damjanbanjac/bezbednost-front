@@ -2,10 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CreateForm from '../components/CreateForm.vue'
 import Admin from '../components/Admin.vue'
+import HomePage from '../components/HomePage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/homePage',
+    name: 'home-page',
+    component: HomePage
+  },
   {
     path: '/userForm',
     name: 'create-form',
