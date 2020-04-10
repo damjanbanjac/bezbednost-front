@@ -123,9 +123,16 @@
                 <div class="form-group" v-if="provera === 'Intermediate certificate'">
                     <label>Intermediate certificate</label>
                     <div>
-                        <select id="intermediateSigners" v-model="intermediate" class="form-control">
-                            
-                        </select>
+                       
+                         <b-form-select style="width:384px; margin-left:1%" v-model="selektovaniCA">
+                        <option 
+                            v-for="zahtev in CAzahtevi"
+                            :value="zahtev.id"
+                            :key="zahtev.id"
+                            >{{zahtev.id}}
+                            </option>
+                        </b-form-select> 
+                        
                     </div>
                 </div>
 
@@ -155,7 +162,9 @@ export default {
         orgUnit: ""
       },
     selektovaniZahtev: "",
+    selektovaniCA: "",
     sviZahtevi: [],
+    CAzahtevi: [],
     provera: "",
     id: "",
     check: false,
@@ -163,7 +172,7 @@ export default {
     itermediate: "",
     certificates: [
         {id: 1, name: 'Intermediate certificate'},
-        {id: 2,name: 'Root certificare'}
+        {id: 2,name: 'Root certificate'}
     ],
       value: [
         { name: 'Javascript', code: 'js' }
@@ -185,15 +194,24 @@ export default {
       this.value.push(tag) 
     },
     addCertificate(){
+         var p = this.provera;
         
-            console.log("usaoooooo")
+          if(p === "Root certificate") {
+             
             axios
                 .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev)
                 
         .catch(error => {
           console.log(error);
         });
-        
+        } else {
+            axios
+                .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev +"/"+this.selektovaniCA)
+                
+        .catch(error => {
+          console.log(error);
+        });
+        } 
     },
     izaberi(id){
         console.log(id);
@@ -218,8 +236,19 @@ export default {
       .catch(error => {
         console.log(error);
       });
+
+       axios
+      .get("/subject/CAsubjekti")
+      .then(CAzahtevi => {
+        this.CAzahtevi = CAzahtevi.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     
     }
+
+     
 }
 </script>
 
