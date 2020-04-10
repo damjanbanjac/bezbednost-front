@@ -23,11 +23,14 @@
                 <div class="row">
                     <div class="col">
                         
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label class="center">Name</label>
-                            <div  >
+                            <div v-for="zahtev in sviZahtevi"
+                                :value="zahtev.id"
+                                :key="zahtev.id" >
                                 <input type="text" readonly 
-                            
+                                v-if="zahtev.id === selektovaniZahtev"
+                                v-model="zahtev.name"
                                 id="inputName" class="form-control">
                             </div>
                         </div>
@@ -37,9 +40,12 @@
                         <div class="form-group" 
                                 >
                             <label class="center">Surname</label>
-                            <div >
+                            <div v-for="zahtev in sviZahtevi"
+                                :value="zahtev.id"
+                                :key="zahtev.id">
                                 <input type="text" readonly
-                                
+                                v-if="zahtev.id === selektovaniZahtev"
+                                v-model="zahtev.surname"
                                 id="inputSurname" class="form-control">
                             </div>
                         </div>
@@ -48,23 +54,39 @@
 
                 
                 
-                <div class="form-group" >
+                <div class="form-group">
                     <label >E-mail</label>
-                    <div >
+                    <div v-for="zahtev in sviZahtevi"
+                        :value="zahtev.id"
+                        :key="zahtev.id">
                         <input type="text" readonly
-                        
+                        v-if="zahtev.id === selektovaniZahtev"
+                        v-model="zahtev.email"
                         id="staticEmail" class="form-control">
                     </div>
                 </div>
 
-                <div class="form-group" 
-                    >
+                <div class="form-group">
                     <label >Organisation</label>
-                    <div 
-                        >
+                    <div v-for="zahtev in sviZahtevi"
+                        :value="zahtev.id"
+                        :key="zahtev.id">
                         <input type="text" readonly 
-                        
+                        v-if="zahtev.id === selektovaniZahtev"
+                        v-model="zahtev.organisation"
                         id="inputOrganisation" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label >Organisation unit</label>
+                    <div v-for="zahtev in sviZahtevi"
+                        :value="zahtev.id"
+                        :key="zahtev.id">
+                        <input type="text" readonly 
+                        v-if="zahtev.id === selektovaniZahtev"
+                        v-model="zahtev.orgUnit"
+                        id="inputOrganisationUnit" class="form-control">
                     </div>
                 </div>
 
