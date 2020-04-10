@@ -1,5 +1,8 @@
 <template>
     <div>
+        <b-container name="errors" v-if="error">
+        <b-alert show variant="danger">{{errorMessage}}</b-alert>
+        </b-container>
         <b-card class="card">
             <div class="header pt-3 lighten-2">
                 <div class="row d-flex justify-content-start">
@@ -90,12 +93,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Days</label>
-                    <div>
-                        <input placeholder="Enter number of days" type="text" v-model="dani" id="inputDateStart" class="form-control">
-                    </div>
-                </div>
+                
 
 
                 <!--<div>
@@ -104,14 +102,10 @@
                 </div>-->
 
 
-                <label class="typo__label">Is CA?</label>
-                <input type="checkbox" v-model="check" style="mx-4; margin-left: 1%">
-
-
                 <div class="form-group">
                     <label>Certificate signer</label>
                     <div>
-                        <b-form-select style="width:384px; margin-left:1%" v-model="provera">
+                        <b-form-select @change="getDani" style="width:384px; margin-left:1%" v-model="provera">
                         <option v-for="cert in certificates" :value="cert.name"
                         :key="cert.name">{{cert.name}}
                     </option>
@@ -124,7 +118,7 @@
                     <label>Intermediate certificate</label>
                     <div>
                        
-                         <b-form-select style="width:384px; margin-left:1%" v-model="selektovaniCA">
+                         <b-form-select @change="getDanIntermediate" style="width:384px; margin-left:1%" v-model="selektovaniCA">
                         <option 
                             v-for="zahtevIntermediate in CAzahtevi"
                             :value="zahtevIntermediate.id"
@@ -133,6 +127,20 @@
                             </option>
                         </b-form-select> 
                         
+                    </div>
+                </div>
+
+                <label class="typo__label">Is CA?</label>
+                <input type="checkbox" v-model="check" style="mx-4; margin-left: 1%">
+
+                <div class="form-group">
+                    <label>Days</label>
+                    <div>
+                        <b-form-select style="width:384px; margin-left:1%" v-model="dani">
+                        <option v-for="(dan, index) in dozvoljeniDani" :value="dan"
+                        :key="dan">{{dan}} ( {{index+1+"godina/e"}} )
+                    </option>
+                    </b-form-select>
                     </div>
                 </div>
 
@@ -165,11 +173,15 @@ export default {
     selektovaniCA: "",
     sviZahtevi: [],
     CAzahtevi: [],
+    dozvoljeniDani: [],
     provera: "",
     id: "",
     check: false,
     dani: "",
+    error: false,
+    errorMessage: "",
     itermediate: "",
+
     certificates: [
         {name: 'Intermediate certificate'},
         {name: 'Root certificate'}
@@ -185,6 +197,31 @@ export default {
      }
    },
    methods: {
+
+    getDanIntermediate(){
+        axios
+                .get("/admin/getDaniIntermediate/"+this.selektovaniCA)
+                .then(nesto =>{
+                    this.dozvoljeniDani = nesto.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+    },
+    getDani(){
+         var p = this.provera;
+        if(p === "Root certificate"){
+            
+            axios
+                .get("/admin/getDani")
+                .then(nesto =>{
+                    this.dozvoljeniDani = nesto.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    },
     addTag (newTag) {
       const tag = {
         name: newTag,
@@ -195,22 +232,84 @@ export default {
     },
     addCertificate(){
          var p = this.provera;
+         this.error = false;
         
           if(p === "Root certificate") {
-             
+            if (
+            this.selektovaniZahtev == "" ||
+            this.provera == "" ||
+            this.dani == "" 
+        ) {
+            this.errorMessage = "Molimo vas popunite sva polja!";
+            this.error = true;
+            return;
+            }
+
+
             axios
                 .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev)
+                .then(b =>{
+                    b="";
+                    this.dani =b;
+                    this.selektovaniZahtev = b;
+                    this.provera = b;
+                    this.check=false;
+                })
                 
         .catch(error => {
           console.log(error);
         });
+
+            axios
+                .get("/subject/zahteviSubjekata")
+                .then(sviZahtevi => {
+                this.sviZahtevi = sviZahtevi.data;
+            })
+            .catch(error => {
+                console.log(error);
+      });
         } else {
+             if (
+            this.selektovaniZahtev == "" ||
+            this.provera == "" ||
+            this.dani == "" ||
+            this.selektovaniCA == ""
+        ) {
+            this.errorMessage = "Molimo vas popunite sva polja!";
+            this.error = true;
+            return;
+            }
+
             axios
                 .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev +"/"+this.selektovaniCA)
-                
+                .then(b =>{
+                    b="";
+                    this.dani =b;
+                    this.selektovaniZahtev = b;
+                    this.provera = b;
+                    this.check=false;
+                    this.selektovaniCA=b;
+                })
         .catch(error => {
           console.log(error);
         });
+           axios
+            .get("/subject/CAsubjekti")
+            .then(CAzahtevi => {
+            this.CAzahtevi = CAzahtevi.data;
+             })
+            .catch(error => {
+            console.log(error);
+        });
+        axios
+      .get("/subject/zahteviSubjekata")
+      .then(sviZahtevi => {
+        this.sviZahtevi = sviZahtevi.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
         } 
     },
     izaberi(id){
