@@ -25,12 +25,12 @@
                         
                         <div class="form-group">
                             <label class="center">Name</label>
-                            <div v-for="zahtev in sviZahtevi"
-                                :value="zahtev.id"
-                                :key="zahtev.id" >
+                            <div v-for="zahtevName in sviZahtevi"
+                                :value="zahtevName.id"
+                                :key="zahtevName.id" >
                                 <input type="text" readonly 
-                                v-if="zahtev.id === selektovaniZahtev"
-                                v-model="zahtev.name"
+                                v-if="zahtevName.id === selektovaniZahtev"
+                                v-model="zahtevName.name"
                                 id="inputName" class="form-control">
                             </div>
                         </div>
@@ -40,12 +40,12 @@
                         <div class="form-group" 
                                 >
                             <label class="center">Surname</label>
-                            <div v-for="zahtev in sviZahtevi"
-                                :value="zahtev.id"
-                                :key="zahtev.id">
+                            <div v-for="zahtevSurname in sviZahtevi"
+                                :value="zahtevSurname.id"
+                                :key="zahtevSurname.id">
                                 <input type="text" readonly
-                                v-if="zahtev.id === selektovaniZahtev"
-                                v-model="zahtev.surname"
+                                v-if="zahtevSurname.id === selektovaniZahtev"
+                                v-model="zahtevSurname.surname"
                                 id="inputSurname" class="form-control">
                             </div>
                         </div>
@@ -56,36 +56,36 @@
                 
                 <div class="form-group">
                     <label >E-mail</label>
-                    <div v-for="zahtev in sviZahtevi"
-                        :value="zahtev.id"
-                        :key="zahtev.id">
+                    <div v-for="zahtevEmail in sviZahtevi"
+                        :value="zahtevEmail.id"
+                        :key="zahtevEmail.id">
                         <input type="text" readonly
-                        v-if="zahtev.id === selektovaniZahtev"
-                        v-model="zahtev.email"
+                        v-if="zahtevEmail.id === selektovaniZahtev"
+                        v-model="zahtevEmail.email"
                         id="staticEmail" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label >Organisation</label>
-                    <div v-for="zahtev in sviZahtevi"
-                        :value="zahtev.id"
-                        :key="zahtev.id">
+                    <div v-for="zahtevOrganisation in sviZahtevi"
+                        :value="zahtevOrganisation.id"
+                        :key="zahtevOrganisation.id">
                         <input type="text" readonly 
-                        v-if="zahtev.id === selektovaniZahtev"
-                        v-model="zahtev.organisation"
+                        v-if="zahtevOrganisation.id === selektovaniZahtev"
+                        v-model="zahtevOrganisation.organisation"
                         id="inputOrganisation" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label >Organisation unit</label>
-                    <div v-for="zahtev in sviZahtevi"
-                        :value="zahtev.id"
-                        :key="zahtev.id">
+                    <div v-for="zahtevOrgUnit in sviZahtevi"
+                        :value="zahtevOrgUnit.id"
+                        :key="zahtevOrgUnit.id">
                         <input type="text" readonly 
-                        v-if="zahtev.id === selektovaniZahtev"
-                        v-model="zahtev.orgUnit"
+                        v-if="zahtevOrgUnit.id === selektovaniZahtev"
+                        v-model="zahtevOrgUnit.orgUnit"
                         id="inputOrganisationUnit" class="form-control">
                     </div>
                 </div>
@@ -111,11 +111,11 @@
                 <div class="form-group">
                     <label>Certificate signer</label>
                     <div>
-                        <select v-model="provera">
-                        <option v-for="cert in certificates" v-bind:key="{id: cert.id, text: cert.name }">
-                        {{ cert.name }}
+                        <b-form-select style="width:384px; margin-left:1%" v-model="provera">
+                        <option v-for="cert in certificates" :value="cert.name"
+                        :key="cert.name">{{cert.name}}
                     </option>
-                    </select>
+                    </b-form-select>
                     </div>
                 </div>
 
@@ -126,10 +126,10 @@
                        
                          <b-form-select style="width:384px; margin-left:1%" v-model="selektovaniCA">
                         <option 
-                            v-for="zahtev in CAzahtevi"
-                            :value="zahtev.id"
-                            :key="zahtev.id"
-                            >{{zahtev.id}}
+                            v-for="zahtevIntermediate in CAzahtevi"
+                            :value="zahtevIntermediate.id"
+                            :key="zahtevIntermediate.id"
+                            >{{zahtevIntermediate.id}}
                             </option>
                         </b-form-select> 
                         
@@ -154,13 +154,13 @@ export default {
     },
     data () {
     return {
-    subject: {
+    /*subject: {
         name: "",
         surname: "",
         email: "",
         organisation: "",
         orgUnit: ""
-      },
+      },*/
     selektovaniZahtev: "",
     selektovaniCA: "",
     sviZahtevi: [],
@@ -171,8 +171,8 @@ export default {
     dani: "",
     itermediate: "",
     certificates: [
-        {id: 1, name: 'Intermediate certificate'},
-        {id: 2,name: 'Root certificate'}
+        {name: 'Intermediate certificate'},
+        {name: 'Root certificate'}
     ],
       value: [
         { name: 'Javascript', code: 'js' }
