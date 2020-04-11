@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import CreateForm from '../components/CreateForm.vue'
 import Admin from '../components/Admin.vue'
 import HomePage from '../components/HomePage.vue'
+import ListCert from '../components/ListCert.vue'
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,11 @@ const routes = [
     path: '/homePage',
     name: 'home-page',
     component: HomePage
+  },
+  {
+    path: '/listCert',
+    name: 'list-cert',
+    component: ListCert
   },
   {
     path: '/userForm',

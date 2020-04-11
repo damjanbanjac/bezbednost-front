@@ -1,5 +1,12 @@
 <template>
     <div>
+        <div>
+        <header>
+            <b-nav class="tabs" align="center" tabs>
+                <router-link to="/listCert" tag="b-nav-item">Certification List</router-link>                
+            </b-nav>
+        </header>
+    </div>
         <b-container name="errors" v-if="error">
         <b-alert show variant="danger">{{errorMessage}}</b-alert>
         </b-container>
