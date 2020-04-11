@@ -16,7 +16,7 @@
                             v-for="zahtev in sviZahtevi"
                             :value="zahtev.id"
                             :key="zahtev.id"
-                            >{{zahtev.id}}
+                            >{{zahtev.id +" " +  zahtev.name + " " + zahtev.surname}}
                             </option>
                         </b-form-select>
                     <br/>
@@ -118,12 +118,12 @@
                     <label>Intermediate certificate</label>
                     <div>
                        
-                         <b-form-select @change="getDanIntermediate" style="width:384px; margin-left:1%" v-model="selektovaniCA">
+                         <b-form-select @change="getDani" style="width:384px; margin-left:1%" v-model="selektovaniCA">
                         <option 
                             v-for="zahtevIntermediate in CAzahtevi"
                             :value="zahtevIntermediate.id"
                             :key="zahtevIntermediate.id"
-                            >{{zahtevIntermediate.id}}
+                            >{{zahtevIntermediate.id + " " + zahtevIntermediate.name + " " + zahtevIntermediate.surname}}
                             </option>
                         </b-form-select> 
                         
@@ -131,14 +131,14 @@
                 </div>
 
                 <label class="typo__label">Is CA?</label>
-                <input type="checkbox" v-model="check" style="mx-4; margin-left: 1%">
+                <input type="checkbox" @change="getDani" v-model="check" style="mx-4; margin-left: 1%">
 
                 <div class="form-group">
                     <label>Days</label>
                     <div>
                         <b-form-select style="width:384px; margin-left:1%" v-model="dani">
                         <option v-for="(dan, index) in dozvoljeniDani" :value="dan"
-                        :key="dan">{{dan}} ( {{index+1+"godina/e"}} )
+                        :key="dan">{{dan}} ( {{index+1+"years"}} )
                     </option>
                     </b-form-select>
                     </div>
@@ -198,28 +198,34 @@ export default {
    },
    methods: {
 
-    getDanIntermediate(){
-        axios
-                .get("/admin/getDaniIntermediate/"+this.selektovaniCA)
-                .then(nesto =>{
-                    this.dozvoljeniDani = nesto.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-    },
+   
     getDani(){
          var p = this.provera;
+         console.log(this.selektovaniZahtev)
         if(p === "Root certificate"){
             
             axios
-                .get("/admin/getDani")
+                .get("/admin/getDani/" +this.check)
                 .then(nesto =>{
                     this.dozvoljeniDani = nesto.data;
                 })
                 .catch(error => {
                     console.log(error);
                 });
+        } else {
+             var pp = this.selektovaniCA;
+            
+             if(pp !== "") {
+                
+             axios
+                .get("/admin/getDaniIntermediate/"+this.selektovaniCA +"/"+this.check)
+                .then(nesto =>{
+                    this.dozvoljeniDani = nesto.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+                }
         }
     },
     addTag (newTag) {
