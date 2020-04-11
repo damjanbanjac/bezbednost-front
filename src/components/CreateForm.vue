@@ -4,6 +4,7 @@
     <b-container name="errors" v-if="error">
       <b-alert show variant="danger">{{errorMessage}}</b-alert>
     </b-container>
+
     <b-container class="d-flex justify-content-center">
       
       <b-card class="card">
