@@ -47,7 +47,7 @@
 
               <b-row class="my-3">
                 <b-col sm="12">
-                  <label class="center">Organisational unit</label>
+                  <label class="center">Organisation unit</label>
                   <b-form-input placeholder="Enter organisational unit" type="text" v-model="subject.orgUnit"></b-form-input>
                 </b-col>
               </b-row>

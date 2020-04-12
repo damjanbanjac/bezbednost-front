@@ -1,15 +1,15 @@
 <template>
 
     <div>
-        <b-table v-if="CAzahtevi.length" class="table col-md-10" :items="CAzahtevi" :fields="fields" striped table-variant="secondary" responsive="sm" stickyHeader="1000px">
+        <b-table v-if="CAzahtevi.length" class="table col-md-10" :items="CAzahtevi" :fields="fields" striped table-variant="light" responsive="sm" stickyHeader="1000px">
             <template v-slot:cell(show_details)="row">
-                <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+                <button size="sm" @click="row.toggleDetails" class="mr-2 btn btn-primary">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-                </b-button>
+                </button>
             </template>
 
             <template v-slot:row-details="row">
-                <b-card background-color="primary">
+                <b-card class="cardd">
 
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Validity:</b></b-col>
@@ -26,14 +26,14 @@
                         <b-col sm="3" class="text-sm-right"><b>Organisation:</b></b-col>
                         <b-col>{{ row.item.organisation }}</b-col>
                         <template>
-                        <b-button class="col-md-4 button valid" size="sm" @click="checkValidity(row.item.id)">Check certificate validity</b-button>
+                        <button class="col-md-4 button valid btn btn-primary" size="sm" @click="checkValidity(row.item.id)">Check certificate validity</button>
                         </template>
                     </b-row>
 
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Organisation unit:</b></b-col>
                         <b-col>{{ row.item.orgUnit }}</b-col>
-                        <b-button class="col-md-4 button" size="sm" @click="revokeCertificate(row.item.id)">Revoke certificate</b-button>
+                        <button class="col-md-4 button btn btn-primary" size="sm" @click="revokeCertificate(row.item.id)">Revoke certificate</button>
                     </b-row>
                 </b-card>
             </template>
@@ -124,11 +124,15 @@ export default {
         padding-left: 15%;
         padding-right: 5%;
         padding-top: 5%;
-        padding-bottom: 5%
+        padding-bottom: 5%;
     }
 
     .button {
         margin-right: 5em;
+    }
+
+    .cardd {
+        background-color: #EFF2F8;
     }
 
 </style>
