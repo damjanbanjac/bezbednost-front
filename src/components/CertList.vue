@@ -134,7 +134,7 @@ export default {
     mounted() {
 
        axios
-      .get("/subject/CAsubjekti")
+      .get("/subject/sviSertifikati")
       .then(CAzahtevi => {
         this.CAzahtevi = CAzahtevi.data;
       })

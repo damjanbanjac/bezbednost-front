@@ -90,7 +90,7 @@ export default {
     },
    mounted() {
     axios
-      .get("/subject/CAsubjekti")
+      .get("/subject/sviSertifikati")
       .then(sviZahtevi => {
         this.sviZahtevi = sviZahtevi.data;
       })
@@ -98,15 +98,7 @@ export default {
         console.log(error);
       });
 
-       axios
-      .get("/subject/CAsubjekti")
-      .then(CAzahtevi => {
-        this.CAzahtevi = CAzahtevi.data;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    
+      
     } 
 
 
