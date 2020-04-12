@@ -5,6 +5,7 @@
             <b-nav class="tabs" align="center" tabs>
                 <router-link to="/adminForm" tag="b-nav-item">Admin</router-link>
                 <router-link to="/userForm" tag="b-nav-item">User</router-link>
+                <router-link to="/certList" tag="b-nav-item">Certification list</router-link>
             </b-nav>
         </header>
     </div>

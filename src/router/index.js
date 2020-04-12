@@ -4,6 +4,7 @@ import CreateForm from '../components/CreateForm.vue'
 import Admin from '../components/Admin.vue'
 import HomePage from '../components/HomePage.vue'
 import ListCert from '../components/ListCert.vue'
+import CertList from '../components/CertList.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/adminForm',
     name: 'admin-form',
     component: Admin
+  },
+  {
+    path: '/certList',
+    name: 'cert-list',
+    component: CertList
   }
 ]
 
