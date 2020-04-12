@@ -5,6 +5,7 @@ import Admin from '../components/Admin.vue'
 import HomePage from '../components/HomePage.vue'
 import ListCert from '../components/ListCert.vue'
 import CertList from '../components/CertList.vue'
+import ProfilCert from '../components/ProfilCert.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/homePage',
     name: 'home-page',
     component: HomePage
+  },
+  {
+    path: '/profilCert/:id',
+    name: 'profil-cert',
+    component: ProfilCert
   },
   {
     path: '/listCert',
