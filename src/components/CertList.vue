@@ -1,19 +1,23 @@
 <template>
 
     <div>
-        <b-table v-if="CAzahtevi.length" class="table col-md-10" :items="CAzahtevi" :fields="fields" striped table-variant="light" responsive="sm" stickyHeader="1000px">
-            <template v-slot:cell(show_details)="row">
+        <b-table v-if="CAzahtevi.length" class="table col-md-10" :items="CAzahtevi" :fields="fields" @row-selected="aktivirajCert" select-mode="single" selectable striped table-variant="light" responsive="sm" stickyHeader="1000px">
+            <!--<template v-slot:cell(show_details)="row">
                 <button size="sm" @click="row.toggleDetails" class="mr-2 btn btn-primary">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
                 </button>
             </template>
-
-            <template v-slot:row-details="row">
+                 <template v-slot:cell>
+        <b-button size="sm"  class="mr-2">
+          Subject Profil
+        </b-button>
+      </template> -->
+          <!--  <template v-slot:row-details="row">
                 <b-card class="cardd">
 
                     <b-row class="mb-2">
                         <b-col sm="3" class="text-sm-right"><b>Validity:</b></b-col>
-                        <b-col v-model="validity">{{ validity ? "Valid" : "Not valid" }}</b-col>
+                        <b-col v-model="validityString">{{ validityString }}</b-col>
                     </b-row>
 
 
@@ -36,7 +40,7 @@
                         <button class="col-md-4 button btn btn-primary" size="sm" @click="revokeCertificate(row.item.id)">Revoke certificate</button>
                     </b-row>
                 </b-card>
-            </template>
+            </template> -->
         </b-table>
     </div>
 
@@ -70,19 +74,36 @@ export default {
                     sortable: true,
                 },
                 {
-                    key: 'show_details',
-                    sortable: false,
-                },
+                    key: 'ca'
+                    
+                }
             ],
         CAzahtevi: [],
-        validity: true
+        validity: true,
+        validityString: ""
       }
     },
     methods: {
 
+         aktivirajCert(id) {
+      
+    
+        
+        this.$router.push("/ProfilCert/" + id[0].id);
+        
+        
+      
+    },
+
         revokeCertificate(id) {
             axios
             .post("/ocsp/revokeOcsp/" + id)
+            .then(validity => {
+                validity = "Not Valid"
+            this.validityString = validity;
+            
+            
+        })
             .catch(error => {
                 console.log(error);
             });
@@ -95,6 +116,12 @@ export default {
         .get("/ocsp/checkValidity/" + id)
         .then(validity => {
             this.validity = validity.data;
+            if(this.validity === true) {
+                this.validityString = "Valid";
+            } else {
+                this.validityString = "Not Valid";
+            }
+            
         })
         .catch(error => {
             console.log(error);
