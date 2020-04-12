@@ -52,10 +52,11 @@
                     
                   />
 
-                  <label for="Form-prezime">Days</label>
+                  <label for="Form-prezime">End Date</label>
                   <input
                   class="form-control"
                     disabled
+                    v-model="datum"
                   />
 
                      <label for="Form-prezime">Ca</label>
@@ -98,7 +99,8 @@ export default {
       return {
            user: {},
         validity: true,
-        validityString: ""
+        validityString: "",
+        datum: ""
       }
     },
 
@@ -149,6 +151,17 @@ export default {
       .then(subject => {
         this.user = subject.data;
         console.log(subject.data)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      axios
+      .get("/subject/preuzmiDatum/" + this.$route.params.id)
+      .then(datum => {
+          console.log(datum + "ima li ga")
+        this.datum = datum.data;
+       
       })
       .catch(error => {
         console.log(error);
