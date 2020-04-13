@@ -80,7 +80,10 @@
             <div class="col">
             <button class="col mt-4 button btn btn-primary" size="ml" @click="revokeCertificate()">Revoke certificate</button>
             </div>
-          
+            <div class="col">
+            <button class="col mt-4 button btn btn-primary" size="ml" @click="downloadCertificate()">Download certificate</button> 
+            </div>
+
             </div>
            
           </div>
@@ -107,6 +110,17 @@ export default {
 
 
     methods: {
+
+        downloadCertificate(){
+          console.log(this.user.ca)
+          axios
+            .get("/admin/download/" + this.$route.params.id+"/"+this.user.name+"/"+this.user.ca)
+            
+            .catch(error => {
+                console.log(error);
+            });
+
+        },
 
         revokeCertificate() {
             axios
