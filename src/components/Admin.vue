@@ -1,12 +1,6 @@
 <template>
     <div>
-        <div>
-        <header>
-            <b-nav class="tabs" align="center" tabs>
-                <router-link to="/listCert" tag="b-nav-item">Certification List</router-link>                
-            </b-nav>
-        </header>
-    </div>
+        
         <b-container name="errors" v-if="error">
         <b-alert show variant="danger">{{errorMessage}}</b-alert>
         </b-container>
@@ -103,10 +97,7 @@
                 
 
 
-                <!--<div>
-                    <label class="typo__label">Key usage extension</label>
-                    <multiselect v-model="value" placeholder="Pick an extension" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
-                </div>-->
+              
 
 
                 <div class="form-group">
@@ -140,6 +131,46 @@
                 <label class="typo__label">Is CA?</label>
                 <input type="checkbox" @change="getDani" v-model="check" style="mx-4; margin-left: 1%">
 
+                 
+                <div>
+                   
+                   
+                     <div class= "row">
+                    <label class="typo__label">DigitalSignature</label>
+                     <input type="checkbox"  v-model="extension.digitalSignature" style="mx-4; margin-left: 1%">
+                     </div>
+                      <div class= "row">
+                      <label class="typo__label">KeyEncipherment</label>
+                     <input type="checkbox"  v-model="extension.keyEncipherment" style="mx-4; margin-left: 1%">
+                      </div>
+                       <div class= "row">
+                            <label class="typo__label">KeyAgreement</label>
+                     <input type="checkbox"  v-model="extension.keyAgreement" style="mx-4; margin-left: 1%">
+                       </div>
+                      <!-- <div class= "row">
+                            <label class="typo__label">TLSWebclientauthentication</label>
+                     <input type="checkbox"  v-model="extension.tLSWebclientauthentication" style="mx-4; margin-left: 1%">
+                       </div>
+                        <div class= "row">
+                            <label class="typo__label">TLSWebserverauthentication</label>
+                     <input type="checkbox"  v-model="extension.tLSWebserverauthentication" style="mx-4; margin-left: 1%">
+                        </div>
+                         <div class= "row">
+                            <label class="typo__label">EmailProtection</label>
+                     <input type="checkbox"  v-model="extension.emailProtection" style="mx-4; margin-left: 1%">
+                         </div> 
+                          
+                           <div class= "row">
+                            <label class="typo__label">CodeSigning</label>
+                     <input type="text"  v-model="extension.codeSigning" style="mx-4; margin-left: 1%">
+                           </div> -->
+                           <div class= "row">
+                            <label class="typo__label">NonRepudiation</label>
+                     <input type="checkbox"  v-model="extension.nonRepudiation" style="mx-4; margin-left: 1%">
+                          </div>
+                </div>
+                
+
                 <div class="form-group">
                     <label>Days</label>
                     <div>
@@ -169,13 +200,20 @@ export default {
     },
     data () {
     return {
-    /*subject: {
-        name: "",
-        surname: "",
-        email: "",
-        organisation: "",
-        orgUnit: ""
-      },*/
+    extension: {
+        digitalSignature: false,
+        keyEncipherment: false,
+        keyAgreement: false,
+        tLSWebserverauthentication: false,
+        tLSWebclientauthentication: false,
+        emailProtection: false,
+        nonRepudiation: false,
+        codeSigning: ""
+        
+        
+       
+        
+      },
     selektovaniZahtev: "",
     selektovaniCA: "",
     sviZahtevi: [],
@@ -193,14 +231,7 @@ export default {
         {name: 'Intermediate certificate'},
         {name: 'Root certificate'}
     ],
-      value: [
-        { name: 'Javascript', code: 'js' }
-      ],
-      options: [
-        { name: 'Vue.js', code: 'vu' },
-        { name: 'Javascript', code: 'js' },
-        { name: 'Open Source', code: 'os' }
-      ]
+     
      }
    },
    methods: {
@@ -258,15 +289,20 @@ export default {
             return;
             }
 
+            console.log(this.extension);
 
             axios
-                .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev)
+                .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev,this.extension)
                 .then(b =>{
                     b="";
                     this.dani =b;
                     this.selektovaniZahtev = b;
                     this.provera = b;
                     this.check=false;
+                     this.extension.digitalSignature = false;
+                    this.extension.nonRepudiation = false;
+                    this.extension.keyEncipherment = false;
+                    this.extension.keyAgreement = false;
                 })
                 
         .catch(error => {
@@ -294,13 +330,17 @@ export default {
             }
 
             axios
-                .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev +"/"+this.selektovaniCA)
+                .post("/admin/addCertificate/"+this.check+"/"+this.dani+"/"+this.selektovaniZahtev +"/"+this.selektovaniCA, this.extension )
                 .then(b =>{
                     b="";
                     this.dani =b;
                     this.selektovaniZahtev = b;
                     this.provera = b;
                     this.check=false;
+                    this.extension.digitalSignature = false;
+                    this.extension.nonRepudiation = false;
+                    this.extension.keyEncipherment = false;
+                    this.extension.keyAgreement = false;
                     this.selektovaniCA=b;
                 })
         .catch(error => {
