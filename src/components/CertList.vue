@@ -89,7 +89,7 @@ export default {
       
     
         
-        this.$router.push("/ProfilCert/" + id[0].id);
+        this.$router.push("/CertProfile/" + id[0].id);
         
         
       

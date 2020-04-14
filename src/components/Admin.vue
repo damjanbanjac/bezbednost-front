@@ -55,8 +55,6 @@
                         </div>
                     </div>
                 </div>
-
-                
                 
                 <div class="form-group">
                     <label >E-mail</label>
@@ -83,7 +81,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label >Organisation unit</label>
+                    <label>Organisation unit</label>
                     <div v-for="zahtevOrgUnit in sviZahtevi"
                         :value="zahtevOrgUnit.id"
                         :key="zahtevOrgUnit.id">
@@ -93,12 +91,6 @@
                         id="inputOrganisationUnit" class="form-control">
                     </div>
                 </div>
-
-                
-
-
-              
-
 
                 <div class="form-group">
                     <label>Certificate signer</label>
@@ -110,7 +102,6 @@
                     </b-form-select>
                     </div>
                 </div>
-
 
                 <div class="form-group" v-if="provera === 'Intermediate certificate'">
                     <label>Intermediate certificate</label>
@@ -131,45 +122,43 @@
                 <label class="typo__label">Is CA?</label>
                 <input type="checkbox" @change="getDani" v-model="check" style="mx-4; margin-left: 1%">
 
-                 
-                <div>
-                   
-                   
-                     <div class= "row">
-                    <label class="typo__label">DigitalSignature</label>
-                     <input type="checkbox"  v-model="extension.digitalSignature" style="mx-4; margin-left: 1%">
-                     </div>
-                      <div class= "row">
-                      <label class="typo__label">KeyEncipherment</label>
-                     <input type="checkbox"  v-model="extension.keyEncipherment" style="mx-4; margin-left: 1%">
-                      </div>
-                       <div class= "row">
-                            <label class="typo__label">KeyAgreement</label>
-                     <input type="checkbox"  v-model="extension.keyAgreement" style="mx-4; margin-left: 1%">
-                       </div>
-                      <!-- <div class= "row">
-                            <label class="typo__label">TLSWebclientauthentication</label>
-                     <input type="checkbox"  v-model="extension.tLSWebclientauthentication" style="mx-4; margin-left: 1%">
-                       </div>
-                        <div class= "row">
-                            <label class="typo__label">TLSWebserverauthentication</label>
-                     <input type="checkbox"  v-model="extension.tLSWebserverauthentication" style="mx-4; margin-left: 1%">
-                        </div>
-                         <div class= "row">
-                            <label class="typo__label">EmailProtection</label>
-                     <input type="checkbox"  v-model="extension.emailProtection" style="mx-4; margin-left: 1%">
-                         </div> 
-                          
-                           <div class= "row">
-                            <label class="typo__label">CodeSigning</label>
-                     <input type="text"  v-model="extension.codeSigning" style="mx-4; margin-left: 1%">
-                           </div> -->
-                           <div class= "row">
-                            <label class="typo__label">NonRepudiation</label>
-                     <input type="checkbox"  v-model="extension.nonRepudiation" style="mx-4; margin-left: 1%">
-                          </div>
+                <br/>
+
+                <label class="typo__label">Is digital signature?</label>
+                <input type="checkbox"  v-model="extension.digitalSignature" style="mx-4; margin-left: 1%">
+
+                <br/>     
+                      
+                <label class="typo__label">Is key encipherment?</label>
+                <input type="checkbox"  v-model="extension.keyEncipherment" style="mx-4; margin-left: 1%">
+
+                <br/>
+                      
+                <label class="typo__label">Is key agreement?</label>
+                <input type="checkbox"  v-model="extension.keyAgreement" style="mx-4; margin-left: 1%">
+
+                <br/>
+                       
+                <!-- <div class= "row">
+                    <label class="typo__label">TLSWebclientauthentication</label>
+                <input type="checkbox"  v-model="extension.tLSWebclientauthentication" style="mx-4; margin-left: 1%">
                 </div>
-                
+                <div class= "row">
+                    <label class="typo__label">TLSWebserverauthentication</label>
+                <input type="checkbox"  v-model="extension.tLSWebserverauthentication" style="mx-4; margin-left: 1%">
+                </div>
+                    <div class= "row">
+                    <label class="typo__label">EmailProtection</label>
+                <input type="checkbox"  v-model="extension.emailProtection" style="mx-4; margin-left: 1%">
+                    </div> 
+                    
+                    <div class= "row">
+                    <label class="typo__label">CodeSigning</label>
+                <input type="text"  v-model="extension.codeSigning" style="mx-4; margin-left: 1%">
+                    </div> -->
+                           
+                <label class="typo__label">Is nonrepudiation?</label>
+                <input type="checkbox"  v-model="extension.nonRepudiation" style="mx-4; margin-left: 1%">
 
                 <div class="form-group">
                     <label>Days</label>

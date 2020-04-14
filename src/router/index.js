@@ -3,9 +3,8 @@ import VueRouter from 'vue-router'
 import CreateForm from '../components/CreateForm.vue'
 import Admin from '../components/Admin.vue'
 import HomePage from '../components/HomePage.vue'
-import ListCert from '../components/ListCert.vue'
 import CertList from '../components/CertList.vue'
-import ProfilCert from '../components/ProfilCert.vue'
+import CertProfile from '../components/CertProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -16,14 +15,9 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/profilCert/:id',
-    name: 'profil-cert',
-    component: ProfilCert
-  },
-  {
-    path: '/listCert',
-    name: 'list-cert',
-    component: ListCert
+    path: '/CertProfile/:id',
+    name: 'cert-profile',
+    component: CertProfile
   },
   {
     path: '/userForm',

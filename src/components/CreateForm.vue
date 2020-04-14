@@ -101,6 +101,7 @@ export default {
         .then(subject=>{
           this.subject= subject.data;
           this.error= false;
+          location.reload();
         })
         .catch(error => {
           console.log(error);

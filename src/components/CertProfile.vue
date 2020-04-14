@@ -1,10 +1,9 @@
 <template>
 <div class="card" id="appp">
   
-  <div>
-  </div>
     <div class="form-group">
           <div class="card-body mt-4">
+
             <div class="row">
               <div class="col">
                 <div class="md-form">
@@ -44,6 +43,7 @@
                   />
                 </div>
               </div>
+
               <div class="col">
                 <div class="md-form pb-3">
                   <label for="Form-pass4">Valid</label>
@@ -61,15 +61,13 @@
                     v-model="datum"
                   />
 
-                     <label for="Form-prezime">Ca</label>
+                     <label for="Form-prezime">CA</label>
                   <input
                   class="form-control"
                     disabled
                     v-model="user.ca"
                   />
                 
-
-                 
                 </div>
               </div>
             </div>
@@ -90,7 +88,7 @@
 
               <transition name="slide" appear>
               <div class="modale" v-if="showModal">
-                  <h2>Certificate download </h2>
+                  <h2>Certificate download</h2>
                   <p>The certificate has been successfully downloaded.</p>
                   <button class="okButton valid btn btn-primary" @click="showModal = false">Ok</button>
               </div>
