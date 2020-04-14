@@ -1,6 +1,8 @@
 <template>
+<div class="card" id="appp">
   
-<div class="card">
+  <div>
+  </div>
     <div class="form-group">
           <div class="card-body mt-4">
             <div class="row">
@@ -83,11 +85,20 @@
             <div class="col">
             <button class="col mt-4 button btn btn-primary" size="ml" @click="downloadCertificate()">Download certificate</button> 
             </div>
-
             </div>
-           
-          </div>
-        </div>
+            <div>
+
+              <transition name="slide" appear>
+              <div class="modale" v-if="showModal">
+                  <h2>Certificate download </h2>
+                  <p>The certificate has been successfully downloaded.</p>
+                  <button class="mt-4 button valid btn btn-primary" @click="showModal = false"> Hide Mod</button>
+              </div>
+
+        </transition>
+      </div>
+    </div>
+  </div>
 </div>
 
                    
@@ -97,21 +108,20 @@
 <script>
 import axios from "axios";
 export default {
-
     data() {
       return {
            user: {},
         validity: true,
         validityString: "",
-        datum: ""
+        datum: "",
+        showModal: false
       }
     },
-
-
 
     methods: {
 
         downloadCertificate(){
+          this.showModal = true;
           console.log(this.user.ca)
           axios
             .get("/admin/download/" + this.$route.params.id+"/"+this.user.name+"/"+this.user.ca)
@@ -194,5 +204,84 @@ export default {
 .cardd {
         background-color: #EFF2F8;
     }
+
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* #appp {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+  } */
+
+
+
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 98;
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  .modale {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    width: 100%;
+    max-width: 400px;
+    background-color: #FFF;
+    border-radius: 16px;
+    padding: 25px;
+
+
+
+  }
+    h1 {
+      color: #222;
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #667;
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform 0.5s;
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    transform: translateY(-50%) translateX(100vw);
+  }
 
 </style>
