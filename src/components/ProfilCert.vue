@@ -92,7 +92,7 @@
               <div class="modale" v-if="showModal">
                   <h2>Certificate download </h2>
                   <p>The certificate has been successfully downloaded.</p>
-                  <button class="mt-4 button valid btn btn-primary" @click="showModal = false"> Hide Mod</button>
+                  <button class="okButton valid btn btn-primary" @click="showModal = false">Ok</button>
               </div>
 
         </transition>
@@ -282,6 +282,12 @@ export default {
   .slide-enter,
   .slide-leave-to {
     transform: translateY(-50%) translateX(100vw);
+  }
+
+  .okButton {
+    margin-left: 37%;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
 </style>
